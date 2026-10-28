@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Register student · AttendAI{% endblock %}
+{% block page_title %}Register student{% endblock %}
+{% block content %}
+<div class="intro-card"><div class="intro-symbol">＋</div><div><h2>Create a student profile</h2><p class="muted">Enter the details below. When submitted, the webcam opens to capture up to 30 face samples.</p></div></div>
+<form class="form-card" method="post" enctype="multipart/form-data" data-confirm="Save this student profile and open the webcam for face capture?">
+  <div class="form-section-title"><span>01</span><div><h3>Student information</h3><p>Basic details used for attendance records.</p></div></div>
+  <div class="form-grid"><label class="field"><span>Student ID <b>*</b></span><input type="number" name="student_id" min="1" required placeholder="e.g. 101"></label><label class="field"><span>Full name <b>*</b></span><input type="text" name="name" required maxlength="100" placeholder="Enter student name"></label><label class="field field-full"><span>Parent / guardian email</span><input type="email" name="parent_email" placeholder="parent@example.com"><small>Email notifications need SMTP settings; they are optional.</small></label></div>
+  <div class="form-section-title section-spaced"><span>02</span><div><h3>Medical information <em>Optional</em></h3><p>Store relevant medical notes and an image if needed.</p></div></div>
+  <div class="form-grid"><label class="field field-full"><span>Medical notes</span><textarea name="medical_issue" rows="3" placeholder="Optional medical notes"></textarea></label><label class="field field-full"><span>Medical photo / document</span><input type="file" name="medical_photo" accept=".jpg,.jpeg,.png,.bmp,image/*"><small>Supported formats: JPG, JPEG, PNG and BMP.</small></label></div>
+  <div class="form-actions"><a class="btn btn-secondary" href="{{ url_for('index') }}">Cancel</a><button class="btn btn-primary" type="submit">Save & capture face <span>→</span></button></div>
+</form>
+<div class="notice"><span>ⓘ</span><p><strong>Before you start:</strong> allow camera access if prompted, make sure your webcam is connected, and keep the face well-lit. Face capture opens a separate OpenCV window on your computer.</p></div>
+{% endblock %}

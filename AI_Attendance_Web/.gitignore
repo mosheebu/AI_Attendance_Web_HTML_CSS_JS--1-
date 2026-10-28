@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.venv/
+attendance.db
+data/faces/*
+data/medical_photos/*
+data/trainer.yml

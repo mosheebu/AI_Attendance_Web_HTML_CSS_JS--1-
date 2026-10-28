@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10172a">
+  <title>{% block title %}AttendAI{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">A</span><span>Attend<span class="brand-light">AI</span><small>SMART ATTENDANCE</small></span></a>
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="nav-links">
+      <a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}"><span>▦</span> Dashboard</a>
+      <a class="nav-link {% if request.endpoint == 'register' %}active{% endif %}" href="{{ url_for('register') }}"><span>＋</span> Register student</a>
+      <a class="nav-link {% if request.endpoint == 'live_attendance' %}active{% endif %}" href="{{ url_for('live_attendance') }}"><span>◉</span> Live attendance</a>
+      <a class="nav-link {% if request.endpoint == 'attendance' %}active{% endif %}" href="{{ url_for('attendance') }}"><span>▤</span> Attendance records</a>
+      <a class="nav-link {% if request.endpoint == 'analytics' %}active{% endif %}" href="{{ url_for('analytics') }}"><span>▥</span> Analytics</a>
+    </nav>
+    <div class="sidebar-bottom"><span class="status-dot"></span><div><strong>Local system</strong><small>Runs on this computer</small></div></div>
+  </aside>
+  <main class="main-content">
+    <header class="topbar"><button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button><div><span class="eyebrow">STUDENT MANAGEMENT</span><h1>{% block page_title %}Dashboard{% endblock %}</h1></div><div class="topbar-date">{{ now_label if now_label else '' }}<span class="avatar">AI</span></div></header>
+    <section class="page-body">
+      {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-stack">{% for category, message in messages %}<div class="flash flash-{{ category }}"><span>{{ message }}</span><button class="flash-close" aria-label="Dismiss">×</button></div>{% endfor %}</div>{% endif %}{% endwith %}
+      {% block content %}{% endblock %}
+      <footer class="footer">AttendAI <span>•</span> Local AI attendance management</footer>
+    </section>
+  </main>
+</body>
+</html>

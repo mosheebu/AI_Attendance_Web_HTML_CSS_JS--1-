@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}Live attendance · AttendAI{% endblock %}
+{% block page_title %}Live attendance{% endblock %}
+{% block content %}
+<div class="welcome-row"><div><h2>Face recognition camera</h2><p class="muted">Keep the camera running to recognize enrolled students and record attendance.</p></div><a class="btn btn-secondary" href="{{ url_for('attendance') }}">View records →</a></div>
+<div class="camera-layout"><div class="camera-card"><div class="camera-header"><span class="live-indicator"></span><strong>Live camera feed</strong><span class="camera-tag">LOCAL WEBCAM</span></div><div class="camera-screen"><img src="{{ url_for('video_feed') }}" alt="Live webcam face recognition feed"><div class="camera-overlay"><span>CAM 01</span><span>AI FACE RECOGNITION</span></div></div><p class="camera-note">If the feed is blank, check that the webcam is not being used by another app and that Windows camera permissions are enabled.</p></div><div class="info-card"><span class="action-icon green">✓</span><h3>How it works</h3><ol class="steps"><li><span>1</span><div><strong>Register students</strong><p>Capture face samples for each student.</p></div></li><li><span>2</span><div><strong>Train the model</strong><p>Use the Train Face AI Model action on the dashboard.</p></div></li><li><span>3</span><div><strong>Recognize faces</strong><p>Known faces can be added to attendance once per day.</p></div></li></ol><a class="btn btn-primary btn-block" href="{{ url_for('attendance') }}">Check attendance records</a></div></div>
+{% endblock %}

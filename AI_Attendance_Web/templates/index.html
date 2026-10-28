@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard · AttendAI{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block content %}
+<div class="welcome-row"><div><p class="muted">Welcome back</p><h2>Your attendance overview</h2><p class="muted">Manage students, train the face model and track today's attendance.</p></div><a class="btn btn-primary" href="{{ url_for('register') }}">＋ Register student</a></div>
+<div class="stats-grid">
+  <article class="stat-card"><div class="stat-top"><span class="stat-icon purple">♙</span><span class="stat-caption">ALL TIME</span></div><div class="stat-number">{{ stats.students }}</div><div class="stat-label">Registered students</div><div class="stat-foot">Student profiles in database</div></article>
+  <article class="stat-card"><div class="stat-top"><span class="stat-icon green">✓</span><span class="stat-caption">{{ today }}</span></div><div class="stat-number">{{ stats.present }}</div><div class="stat-label">Present today</div><div class="stat-foot">Unique attendance entries today</div></article>
+  <article class="stat-card"><div class="stat-top"><span class="stat-icon blue">▤</span><span class="stat-caption">ALL TIME</span></div><div class="stat-number">{{ stats.records }}</div><div class="stat-label">Total attendance records</div><div class="stat-foot">Saved in local database</div></article>
+</div>
+<div class="section-heading"><div><h2>Quick actions</h2><p class="muted">Get your attendance system ready</p></div></div>
+<div class="action-grid">
+  <a class="action-card" href="{{ url_for('register') }}"><span class="action-icon purple">＋</span><div><h3>Register a student</h3><p>Add student details and capture face samples using your webcam.</p><span class="text-link">Open registration →</span></div></a>
+  <form class="action-card action-form" action="{{ url_for('train') }}" method="post" data-confirm="Train the face recognition model using captured samples?"><span class="action-icon blue">✳</span><div><h3>Train face AI model</h3><p>Build or refresh the model after registering students.</p><button class="text-button" type="submit">Train model →</button></div></form>
+  <a class="action-card" href="{{ url_for('live_attendance') }}"><span class="action-icon green">◉</span><div><h3>Start live attendance</h3><p>Recognize registered faces and record attendance automatically.</p><span class="text-link">Open live camera →</span></div></a>
+</div>
+<div class="section-heading"><div><h2>Recent attendance</h2><p class="muted">Latest saved entries</p></div><a class="text-link" href="{{ url_for('attendance') }}">View all →</a></div>
+<div class="table-card"><div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>STUDENT ID</th><th>DATE</th><th>TIME</th><th>STATUS</th></tr></thead><tbody>
+{% for row in recent %}<tr><td><div class="person-cell"><span class="person-avatar">{{ row.name[:1]|upper }}</span><strong>{{ row.name }}</strong></div></td><td>#{{ row.student_id }}</td><td>{{ row.date }}</td><td>{{ row.time }}</td><td><span class="pill pill-green">Present</span></td></tr>{% else %}<tr><td colspan="5" class="empty-state">No attendance records yet. Register a student to get started.</td></tr>{% endfor %}
+</tbody></table></div></div>
+{% endblock %}

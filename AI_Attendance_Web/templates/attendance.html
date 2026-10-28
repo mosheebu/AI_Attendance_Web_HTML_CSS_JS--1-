@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}Attendance records · AttendAI{% endblock %}
+{% block page_title %}Attendance records{% endblock %}
+{% block content %}
+<div class="welcome-row"><div><h2>Attendance history</h2><p class="muted">Browse the attendance records saved on this computer.</p></div><a class="btn btn-primary" href="{{ url_for('live_attendance') }}">◉ Live attendance</a></div>
+<div class="table-card"><div class="table-toolbar"><label class="search-box"><span>⌕</span><input id="tableSearch" type="search" placeholder="Search name, ID or date…" aria-label="Search attendance records"></label><span class="muted">{{ rows|length }} record(s)</span></div><div class="table-wrap"><table id="recordsTable"><thead><tr><th>STUDENT</th><th>STUDENT ID</th><th>DATE</th><th>TIME</th><th>STATUS</th></tr></thead><tbody>{% for row in rows %}<tr><td><div class="person-cell"><span class="person-avatar">{{ row.name[:1]|upper }}</span><strong>{{ row.name }}</strong></div></td><td>#{{ row.student_id }}</td><td>{{ row.date }}</td><td>{{ row.time }}</td><td><span class="pill pill-green">Present</span></td></tr>{% else %}<tr><td colspan="5" class="empty-state">No records yet. Register students and start live attendance.</td></tr>{% endfor %}</tbody></table></div><div class="empty-search" id="emptySearch" hidden>No matching records found.</div></div>
+{% endblock %}
